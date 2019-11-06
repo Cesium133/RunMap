@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
+  routeTypes = ['Run','Bike','Hike'];
+  elevationRatings = ['Downhill','Flat','Hilly','Steep'];
+  pavedOptions = ['Not Paved', 'Paved', 'Mixed'];
+  scenicRating = [1,2,3,4,5];
+  overallRating = [1,2,3,4,5];
+  
 
   constructor() {}
 
