@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Draw your route</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-button color="secondary" id = "addToMapButton" (click)="routeFinishedDrawing()">
+      <ion-icon slot="icon-only" name="map"></ion-icon>
+      Add Route to Map!
+    </ion-button>
+
+    <div #viewDiv id="viewDiv"></div>
+</ion-content>
