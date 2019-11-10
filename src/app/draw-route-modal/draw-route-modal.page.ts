@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { loadModules } from 'esri-loader';
+import { NavParams } from '@ionic/angular';
+
+import * as Terraformer from 'terraformer';
+import * as ArcGISParse from 'terraformer-arcgis-parser';
+import length from '@turf/length';
 
 @Component({
   selector: 'app-draw-route-modal',
@@ -12,9 +17,12 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
   // The <div> where we will place the map
   @ViewChild("viewDiv", { static: true }) private mapViewEl: ElementRef;
   view: any;
-  jsonObj: Object;
+  arcgisJSON: Object;
+  geoJSON: any;
+  routeLength: number = 0;
+  routeData: Object;
 
-  constructor(public modalController: ModalController) {}
+  constructor(public modalController: ModalController, public navParams: NavParams) {}
 
   async initializeMap() {
     try {
@@ -108,25 +116,47 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
 
       sketch.on("create", (e)=> {
         if (e.state === "complete") {
-          // make button at top active
-          console.log("Completed sketch!");
+          // TODO: make button at top active when sketch is finished
+          // TODO: when first sketch is finished drawing, user can't draw anymore
           let graphics = graphicsLayer.graphics
           graphics.forEach((graphic)=> {
-            this.jsonObj = graphic.geometry.toJSON();
-            console.log(this.jsonObj)
+            this.arcgisJSON = graphic.geometry.toJSON();
+            this.convertJSONtoGeoJSON()
           });
-          console.log(JSON.stringify(this.jsonObj))
-
         }
       });
-
-      
-
       return this.view;
 
     } catch (error) {
       console.log("EsriLoader: ", error);
     }
+  }
+
+  convertJSONtoGeoJSON() {
+    /*
+    ? what happens after sketch is completed? 
+    * convert sketch to ArcGIS JSON using geometry method toJSON()
+    * use Terraformer to convert ArcGIS JSON to GeoJSON
+    * New GeoJSON is still in Pseudo Mercator (id:3857), so use Terraformer tool to convert toGeographic (id:4326)
+    * calculate length using turf 
+    */
+
+    let geoJSON3857 = ArcGISParse.parse(this.arcgisJSON);
+    this.geoJSON = Terraformer.Tools.toGeographic(geoJSON3857);
+    this.calculateLength();
+  }
+
+  calculateLength() {
+    this.routeLength = length(this.geoJSON, {
+      units:"miles"
+    })
+    this.routeLength = parseFloat(this.routeLength.toFixed(2))
+    console.log(this.routeLength)
+    this.routeData = {
+      'json': this.geoJSON,
+      'length': this.routeLength
+    }
+    // console.log(length(this.geoJSON))
   }
 
   ngOnInit() {
@@ -142,6 +172,6 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
 
 
   async routeFinishedDrawing() {
-    await this.modalController.dismiss();
+    await this.modalController.dismiss(this.routeData);
   }
 }

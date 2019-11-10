@@ -1,8 +1,17 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, NgModule } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Router} from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { AppComponent }  from '../app.component';
 import { DrawRouteModalPage } from '../draw-route-modal/draw-route-modal.page';
+
+@NgModule({
+  imports: [ FormGroup, FormsModule, ReactiveFormsModule ],
+  declarations: [ AppComponent ],
+  entryComponents: [ DrawRouteModalPage ]
+
+})
+
 
 @Component({
   selector: 'app-tab2',
@@ -10,6 +19,11 @@ import { DrawRouteModalPage } from '../draw-route-modal/draw-route-modal.page';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
+  form:FormGroup;
+  routeJSON: Object;
+  routeLength: number;
+  showForm: boolean = true;
 
   routeTypes = ['Run','Bike','Hike'];
   elevationRatings = ['Downhill','Flat','Hilly','Steep'];
@@ -26,8 +40,9 @@ export class Tab2Page {
       component:DrawRouteModalPage,
       // componentProps: 
     });
-    drawRouteModal.onDidDismiss().then((routeJSON) => {
-      console.log(routeJSON)
+    drawRouteModal.onDidDismiss().then((routeData) => {
+      this.routeJSON = routeData.data.json;
+      this.routeLength = routeData.data.length
     });
     return await drawRouteModal.present();
   }

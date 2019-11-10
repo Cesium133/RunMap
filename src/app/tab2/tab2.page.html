@@ -8,51 +8,58 @@
 
 <ion-content>
   <h5>Route Details</h5>
-  <div>
-    <ion-item>
-      <ion-label position="stacked">Type of Route</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let route of routeTypes" [value]="route">{{route}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Scenic Rating</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let rating of scenicRating" [value]="rating">{{rating}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Elevation Rating</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let rating of elevationRatings" [value]="rating">{{rating}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Paved?</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let paved of pavedOptions" [value]="paved">{{paved}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Overall Rating</ion-label>
-      <ion-select>
-        <ion-select-option *ngFor="let rating of overallRating" [value]="rating">{{rating}}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Notes</ion-label>
-      <ion-textarea placeholder="Anything else worth mentioning about the route?">
-      </ion-textarea>
-    </ion-item>
-    <section>
-      <ion-button expand='block' id="drawPageButton" (click)="goToDrawRouteModalPage()">
-        Draw the Route!
+  <div *ngIf = "showForm">
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-label position="stacked">Type of Route</ion-label>
+        <ion-select>
+          <ion-select-option *ngFor="let route of routeTypes" [value]="route">{{route}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Scenic Rating</ion-label>
+        <ion-select>
+          <ion-select-option *ngFor="let rating of scenicRating" [value]="rating">{{rating}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Elevation Rating</ion-label>
+        <ion-select>
+          <ion-select-option *ngFor="let rating of elevationRatings" [value]="rating">{{rating}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Paved?</ion-label>
+        <ion-select>
+          <ion-select-option *ngFor="let paved of pavedOptions" [value]="paved">{{paved}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Overall Rating</ion-label>
+        <ion-select>
+          <ion-select-option *ngFor="let rating of overallRating" [value]="rating">{{rating}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Notes</ion-label>
+        <ion-textarea placeholder="Anything else worth mentioning about the route?">
+        </ion-textarea>
+      </ion-item>
+    
+    
+      <ion-text color="primary" *ngIf="routeLength">
+        <h3>Your route measuring {{routeLength}} miles has been added to the form! </h3>
+      </ion-text>
+      <section>
+        <ion-button expand='block' id="drawPageButton" (click)="goToDrawRouteModalPage()">
+          Draw the Route!
+        </ion-button>
+      </section>
+      <ion-button expand='block' id="drawPageButton" [disabled]="disabled">
+          Submit!
       </ion-button>
-    </section>
-    <ion-button expand='block' id="drawPageButton" [disabled]="disabled">
-        Submit!
-    </ion-button>
 
+    </form>
     
 
   </div>

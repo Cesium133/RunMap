@@ -10,11 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { DrawRouteModalPage } from './draw-route-modal/draw-route-modal.page'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, DrawRouteModalPage],
   entryComponents: [DrawRouteModalPage],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,
