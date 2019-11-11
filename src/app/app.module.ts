@@ -11,11 +11,12 @@ import { AppComponent } from './app.component';
 
 import { DrawRouteModalPage } from './draw-route-modal/draw-route-modal.page'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, DrawRouteModalPage],
   entryComponents: [DrawRouteModalPage],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
