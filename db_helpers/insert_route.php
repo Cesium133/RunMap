@@ -42,6 +42,8 @@ show error messages. refer to langData.php to see how postgres does it
 // } else {
 //     echo "Because of issues with the drawn route, your data couldn't be submitted. Please try again. ";
 // }
+$insertQuery = "INSERT INTO routes_data(routeType, scenicRating, elevationRating, paved, overallRating, notes, routeJson, routeLength, submit_datetime) 
+VALUES ('$routeType','$scenicRating','$elevationRating','$paved','$overallRating','$notes', '$routeJSON','$routeLength','$datetime')";
 
 $executeQuery = pg_query($insertQuery);
 
@@ -49,9 +51,6 @@ $executeQuery = pg_query($insertQuery);
 if (!$executeQuery) {
     echo "<p>Error: failed to insert data! Please try again. </p>";
 }
-
-$insertQuery = "INSERT INTO routes_data(routeType, scenicRating, elevationRating, paved, overallRating, notes, routeJson, routeLength, submit_datetime) 
-VALUES ('$routeType','$scenicRating','$elevationRating','$paved','$overallRating','$notes', '$routeJSON','$routeLength','$datetime')";
 
 
 // Closing connection

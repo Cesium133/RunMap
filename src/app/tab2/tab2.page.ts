@@ -75,7 +75,7 @@ export class Tab2Page {
     params.append('notes', this.form.controls.notes.value);
     params.append('overallRating', this.form.controls.overallRating.value);
     params.append('routeLength', String(this.routeLength));
-    params.append('routeJSON', JSON.stringify(this.routeJSON));
+    params.append('routeJSON', String(this.routeJSON));
 
     this.httpClient.post(insert_url, params).subscribe(data => {
       console.log(data);
