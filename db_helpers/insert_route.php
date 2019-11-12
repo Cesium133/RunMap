@@ -26,7 +26,6 @@ $datetime = date("M d, Y h:i A");
 if routejson field is not empty, execute db connection
 show error messages. refer to langData.php to see how postgres does it
 */
-// echo $routeJSON;
 
 // if (!empty($routeJSON)) {
 //     echo "<h2>Your route has been submitted! </h2>";
@@ -42,6 +41,7 @@ show error messages. refer to langData.php to see how postgres does it
 // } else {
 //     echo "Because of issues with the drawn route, your data couldn't be submitted. Please try again. ";
 // }
+
 $insertQuery = "INSERT INTO routes_data(routeType, scenicRating, elevationRating, paved, overallRating, notes, routeJson, routeLength, submit_datetime) 
 VALUES ('$routeType','$scenicRating','$elevationRating','$paved','$overallRating','$notes', '$routeJSON','$routeLength','$datetime')";
 

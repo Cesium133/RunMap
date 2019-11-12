@@ -37,7 +37,7 @@ export class Tab2Page {
   constructor(public formBuilder:FormBuilder, public router: Router, public httpClient:HttpClient, public modalController: ModalController) {
     this.form = formBuilder.group({
       "type":["Run", Validators.required],
-      "scenicRating":[""],
+      "scenicRating":["3"],
       "elevationRating":["", Validators.required],
       "paved": ["Mixed", Validators.required],
       "overallRating":["", Validators.required],
@@ -75,7 +75,7 @@ export class Tab2Page {
     params.append('notes', this.form.controls.notes.value);
     params.append('overallRating', this.form.controls.overallRating.value);
     params.append('routeLength', String(this.routeLength));
-    params.append('routeJSON', String(this.routeJSON));
+    params.append('routeJSON', JSON.stringify(this.routeJSON));
 
     this.httpClient.post(insert_url, params).subscribe(data => {
       console.log(data);
@@ -84,5 +84,7 @@ export class Tab2Page {
     })
 
   }
+
+  // TODO initialize fields function here
 
 }
