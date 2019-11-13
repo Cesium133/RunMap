@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
+import {NavigationExtras} from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -7,7 +10,12 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  constructor(public httpClient: HttpClient, public router: Router) {}
+
+  private baseURL = "http://kevincheriyan.com/runmap/";
+  private getURL = this.baseURL + "get_routes.php";
+  private routesObj : any = [];
+  
 
   routeTypes = ['Run','Bike','Hike', 'All'];
   elevationRatings = ['Downhill','Flat','Hilly','Steep', 'All'];
@@ -23,14 +31,34 @@ export class Tab3Page {
   ngOnInit() {
     const lengthRange = document.querySelector("#length");
     lengthRange.value = {lower:25, upper: 75};
+
+    this.listRoutes();
   }
 
   listRoutes() {
-    console.log("Started")
+    this.httpClient.get(this.getURL).subscribe(data => {
+      this.routesObj = data;
+      console.log(this.routesObj);
+      console.log(Object.values(this.routesObj))
+      console.log(Object.values(this.routesObj.routetype))
+      
+    });
+
+  }
+
+  goToResultsPage() {
+
+    let navExtras: NavigationExtras = {
+      queryParams: {
+        routesArray: this.routesObj
+      }
+    }
+
+    this.router.navigate(['results'], navExtras);
   }
 
   ionViewWillEnter() {
-    
+    // ! add here
   }
 
 

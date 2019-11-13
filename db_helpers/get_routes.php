@@ -8,12 +8,12 @@
 
     require_once("db.php");
 
-    $info;
-    $query = 'SELECT * FROM routes_data ORDER BY submit_datetime';
+    $info = array();
+    $query = 'SELECT * FROM routes_data';
     $result = pg_query($query) or die("Query failed: " . pg_last_error());
 
-    while($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
-        array_push($info, $line);
+    while($row = pg_fetch_array($result, NULL, PGSQL_ASSOC)) {
+        array_push($info, $row);
     }
 
     // Closing connection
