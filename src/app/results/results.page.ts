@@ -11,16 +11,17 @@ export class ResultsPage implements OnInit {
   routeRecords : Array<any> = []
 
 
-  constructor(private route: ActivatedRoute, public router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, public router: Router) { }
 
   ngOnInit() {
     console.log("Results page onInit")
-    this.route.queryParams.subscribe((params)=> {
+    this.activatedRoute.queryParams.subscribe((params)=> {
+      console.log(params)
       this.routeRecords = params.routesArray;
     })
-    this.routeRecords.forEach((route) => {
-      // console.log(JSON.stringify(route))
-    })
+    // this.routeRecords.forEach((route) => {
+    //   console.log(JSON.stringify(route))
+    // })
   }
 
 

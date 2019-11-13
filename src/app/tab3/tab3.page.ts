@@ -37,10 +37,11 @@ export class Tab3Page {
 
   listRoutes() {
     this.httpClient.get(this.getURL).subscribe(data => {
-      this.routesObj = data;
-      console.log(this.routesObj);
-      console.log(Object.values(this.routesObj))
-      console.log(Object.values(this.routesObj.routetype))
+      this.routesObj = JSON.stringify(data);
+      // this.routesObj.forEach((element)=> {
+      //   console.log(element)
+      // })
+      
       
     });
 
@@ -53,6 +54,7 @@ export class Tab3Page {
         routesArray: this.routesObj
       }
     }
+
 
     this.router.navigate(['results'], navExtras);
   }
