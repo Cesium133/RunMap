@@ -7,7 +7,8 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   { path: 'draw-route-modal', loadChildren: './draw-route-modal/draw-route-modal.module#DrawRouteModalPageModule' },
-  { path: 'results', loadChildren: './results/results.module#ResultsPageModule' }
+  { path: 'results', loadChildren: './results/results.module#ResultsPageModule' },
+  { path: 'view-routes-modal', loadChildren: './view-routes-modal/view-routes-modal.module#ViewRoutesModalPageModule' }
 ];
 @NgModule({
   imports: [

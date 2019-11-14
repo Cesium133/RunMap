@@ -11,20 +11,20 @@
 
 <ion-content>
     <ion-list>
-      <ion-item>
-        <ion-label>Pokémon Yellow</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Mega Man X</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>The Legend of Zelda</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Pac-Man</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Super Mario World</ion-label>
+      <ion-item *ngFor="let routeRecord of routeRecords; index as i">
+        <ion-label>
+          <span class="cat-val">Route type: </span> <span class="val">{{routeRecord.routetype}}</span> <br>
+          <span class="cat-val">Length: </span> <span class="val">{{routeRecord.routelength}} miles</span><br>
+          <span class="cat-val">Overall Route Rating: </span> <span class="val">{{routeRecord.overallrating}}</span> <br>
+          <span class="cat-val">Scenic Rating: </span> <span class="val">{{routeRecord.scenicrating}}</span> <br>
+          <span class="cat-val">Paved: </span> <span class="val">{{routeRecord.paved}}</span> <br>
+        </ion-label>
+        <ion-button [ngSwitch]="routeRecord.routetype" slot="end" size="large" fill="clear" color="medium" (click)="goToViewRoutesModalPage(i)">
+          <img *ngSwitchCase="'Bike'" src="../../assets/icon/cycling-icon.png" alt="">
+          <img *ngSwitchCase="'Hike'" src="../../assets/icon/hiking-icon.png" alt="">
+          <img *ngSwitchDefault src="../../assets/icon/running-icon.png" alt="">
+          <ion-icon name="arrow-forward" color="secondary"></ion-icon>
+        </ion-button>
       </ion-item>
     </ion-list>
 </ion-content>

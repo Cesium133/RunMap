@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Selected Route Info</ion-title>
+    <ion-button slot="end" (click)="dismissViewRoutesModalPage()" fill="clear">
+      <ion-icon slot="icon-only" name="close" color="medium"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #mapDiv id="mapDiv"></div>
+  <div id="routeInfoDiv">
+    <span class="cat-val">Route type: </span> <span class="val">{{chosenRoute.routetype}}</span> <br>
+    <span class="cat-val">Length: </span> <span class="val">{{chosenRoute.routelength}} miles</span><br>
+    <span class="cat-val">Overall Route Rating: </span> <span class="val">{{chosenRoute.overallrating}}</span> <br>
+    <span class="cat-val">Scenic Rating: </span> <span class="val">{{chosenRoute.scenicrating}}</span> <br>
+    <span class="cat-val">Paved: </span> <span class="val">{{chosenRoute.paved}}</span> <br>
+    <span class="cat-val">Notes: </span> <span class="val">{{chosenRoute.notes}}</span>
+  </div>
+</ion-content>

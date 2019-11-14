@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+
+import { ViewRoutesModalPage } from '../view-routes-modal/view-routes-modal.page';
+
+@NgModule({
+  entryComponents: [ ViewRoutesModalPage ]
+})
 
 @Component({
   selector: 'app-results',
@@ -11,17 +18,28 @@ export class ResultsPage implements OnInit {
   routeRecords : Array<any> = []
 
 
-  constructor(private activatedRoute: ActivatedRoute, public router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, public router: Router, public modalController: ModalController) { }
 
   ngOnInit() {
-    console.log("Results page onInit")
     this.activatedRoute.queryParams.subscribe((params)=> {
-      console.log(params)
-      this.routeRecords = params.routesArray;
-    })
-    // this.routeRecords.forEach((route) => {
-    //   console.log(JSON.stringify(route))
-    // })
+      this.routeRecords = JSON.parse(params.routesArray);
+      // console.log(this.routeRecords[3])
+      // this.routeRecords.forEach((record) => {
+      //   console.log(record);
+      // });
+    });
+
+  }
+
+  async goToViewRoutesModalPage(index) {
+    const viewRouteModal = await this.modalController.create({
+      component: ViewRoutesModalPage,
+      componentProps: {
+        'chosenRoute': this.routeRecords[index]
+      }
+    });
+
+    return await viewRouteModal.present();
   }
 
 
