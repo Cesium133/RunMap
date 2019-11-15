@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { loadModules } from 'esri-loader';
+import * as ArcGISParse from 'terraformer-arcgis-parser';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ViewRoutesModalPage implements OnInit {
 
   view: any;
   chosenRoute : any;
-
+  chosenRouteArcGISJson: any;
   constructor(public modalController: ModalController) { }
 
   async initializeMap() {
@@ -75,6 +76,25 @@ export class ViewRoutesModalPage implements OnInit {
         })
       });
 
+      // add json
+      const polyline = {
+        type: "polyline",
+        paths: this.chosenRouteArcGISJson.paths
+      }
+
+      const lineSymbol = {
+        type: "simple-line", // autocasts as new SimpleLineSymbol()
+        color: [226, 119, 40], // RGB color values as an array
+        width: 4
+      };
+
+      const routeLayer = new Graphic({
+        geometry:polyline,
+        symbol: lineSymbol
+      })
+
+      this.view.graphics.add(routeLayer);
+
       const searchWidget = new Search({
         view:this.view
       });
@@ -104,6 +124,12 @@ export class ViewRoutesModalPage implements OnInit {
   ngOnInit() {
     console.log(this.chosenRoute);
     this.initializeMap();
+    this.convertJsonObject();
+  }
+
+  convertJsonObject() {
+    this.chosenRouteArcGISJson = ArcGISParse.convert(JSON.parse(this.chosenRoute.routejson));
+    console.log((this.chosenRouteArcGISJson.paths))
   }
 
   

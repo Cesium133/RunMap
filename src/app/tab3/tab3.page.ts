@@ -17,9 +17,9 @@ export class Tab3Page {
   private routesObj : any = [];
   
 
-  routeTypes = ['Run','Bike','Hike', 'All'];
-  elevationRatings = ['Downhill','Flat','Hilly','Steep', 'All'];
-  pavedOptions = ['Not Paved', 'Paved', 'Mixed', 'All'];
+  routeTypes = ['Run','Bike','Hike'];
+  elevationRatings = ['Downhill','Flat','Hilly','Steep'];
+  pavedOptions = ['Not Paved', 'Paved', 'Mixed'];
   scenicRating = [1,2,3,4,5];
   overallRating = [1,2,3,4,5];
 
@@ -30,7 +30,7 @@ export class Tab3Page {
 
   ngOnInit() {
     const lengthRange = document.querySelector("#length");
-    lengthRange.value = {lower:25, upper: 75};
+    // lengthRange.value = {lower:25, upper: 75};
 
     this.listRoutes();
   }

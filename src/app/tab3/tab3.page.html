@@ -7,56 +7,66 @@
 </ion-header>
 
 <ion-content>
+  <ion-button expand='block' (click)="goToResultsPage()">
+    <ion-icon name="rocket"></ion-icon>
+    See all submitted routes
+  </ion-button>
+
   <h5>Enter details for the route you want below </h5>
   <hr>
+  <div class="form-section">
+    <ion-text position="stacked">Type of Route</ion-text>
+    <ion-item *ngFor="let routeType of routeTypes" lines="full">
+      <ion-label>{{routeType}}</ion-label>
+      <ion-checkbox color="dark" slot="start" name="routeType"></ion-checkbox>
+    </ion-item>
+  </div>
 
-  <ion-fab vertical="top" horizontal="end" edge slot="fixed" (click)="goToResultsPage()">
-    <ion-fab-button>
-      <ion-icon name="rocket"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div class="form-section">
+    <ion-text position="stacked">Length of Route</ion-text>
+    <ion-item>
+      <ion-range id = "length" dual-knobs pin min="0" max="100" color="secondary">
+        <ion-label slot="start">0 miles</ion-label>
+        <ion-label slot="end">100 miles</ion-label>
+      </ion-range>
+    </ion-item>
+  </div>
 
-  <ion-text position="stacked">Type of Route</ion-text>
-  <ion-item *ngFor="let routeType of routeTypes">
-    <ion-label>{{routeType}}</ion-label>
-    <ion-checkbox color="dark" slot="start" name="routeType"></ion-checkbox>
-  </ion-item>
+  <div class="form-section">
+    <ion-text position="stacked">Scenic Rating</ion-text>
+    <ion-item>
+      <ion-range pin min="1" max="5" color="secondary" value="3">
+        <ion-label slot="start">1 or better</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+    </ion-item>
+  </div>
 
-  <ion-text position="stacked">Length of Route</ion-text>
-  <ion-item>
-    <ion-range id = "length" dual-knobs pin min="0" max="100" color="secondary">
-      <ion-label slot="start">0 miles</ion-label>
-      <ion-label slot="end">100 miles</ion-label>
-    </ion-range>
-  </ion-item>
+  <div class="form-section">
+    <ion-text position="stacked">Paved status</ion-text>
+    <ion-item *ngFor="let paved of pavedOptions" lines="full">
+      <ion-label>{{paved}}</ion-label>
+      <ion-checkbox color="dark" slot="start" name="paved"></ion-checkbox>
+    </ion-item>
+  </div>  
 
-  <ion-text position="stacked">Scenic Rating</ion-text>
-  <ion-item>
-    <ion-range pin min="1" max="5" color="secondary" value="3">
-      <ion-label slot="start">1 or better</ion-label>
-      <ion-label slot="end">5</ion-label>
-    </ion-range>
-  </ion-item>
-
-  <ion-text position="stacked">Paved status</ion-text>
-  <ion-item *ngFor="let paved of pavedOptions">
-    <ion-label>{{paved}}</ion-label>
-    <ion-checkbox color="dark" slot="start" name="paved"></ion-checkbox>
-  </ion-item>
-
-  <ion-text position="stacked">Elevation</ion-text>
-  <ion-item *ngFor="let elevation of elevationRatings">
-    <ion-label>{{elevation}}</ion-label>
-    <ion-checkbox color="dark" slot="start" name="elevation"></ion-checkbox>
-  </ion-item>
-
-  <ion-text position="stacked">Overall Rating</ion-text>
-  <ion-item>
-    <ion-range pin min="1" max="5" color="secondary" value="3">
-      <ion-label slot="start">1 or better</ion-label>
-      <ion-label slot="end">5</ion-label>
-    </ion-range>
-  </ion-item>
+  <div class="form-section">
+    <ion-text position="stacked">Elevation</ion-text>
+    <ion-item *ngFor="let elevation of elevationRatings" lines="full">
+      <ion-label>{{elevation}}</ion-label>
+      <ion-checkbox color="dark" slot="start" name="elevation"></ion-checkbox>
+    </ion-item>
+  </div>
+  
+  <div class="form-section">
+    <ion-text position="stacked">Overall Rating</ion-text>
+    <ion-item>
+      <ion-range pin min="1" max="5" color="secondary" value="3">
+        <ion-label slot="start">1 or better</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+    </ion-item>
+  </div>
 
   <ion-button expand="block">Search</ion-button>
   

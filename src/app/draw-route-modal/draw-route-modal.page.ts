@@ -140,7 +140,7 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
     * New GeoJSON is still in Pseudo Mercator (id:3857), so use Terraformer tool to convert toGeographic (id:4326)
     * calculate length using turf 
     */
-
+    console.log(JSON.stringify(this.arcgisJSON))
     let geoJSON3857 = ArcGISParse.parse(this.arcgisJSON);
     this.geoJSON = Terraformer.Tools.toGeographic(geoJSON3857);
     this.calculateLength();
