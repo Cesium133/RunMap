@@ -14,26 +14,26 @@ export class ViewRoutesModalPage implements OnInit {
   @ViewChild("mapDiv", { static: true }) private mapViewEl: ElementRef;
 
   view: any;
-  chosenRoute : any;
+  chosenRoute: any;
   chosenRouteArcGISJson: any;
   constructor(public modalController: ModalController) { }
 
   async initializeMap() {
     try {
       const [
-        Map, 
-        MapView, 
-        BasemapToggle, 
-        Locate, 
+        Map,
+        MapView,
+        BasemapToggle,
+        Locate,
         Graphic,
         GraphicsLayer,
         Search,
         Sketch,
       ] = await loadModules([
-        "esri/Map", 
-        "esri/views/MapView", 
-        "esri/widgets/BasemapToggle", 
-        "esri/widgets/Locate", 
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/BasemapToggle",
+        "esri/widgets/Locate",
         "esri/Graphic",
         "esri/layers/GraphicsLayer",
         "esri/widgets/Search",
@@ -64,7 +64,7 @@ export class ViewRoutesModalPage implements OnInit {
       const locate = new Locate({
         view: this.view,
         graphic: new Graphic({
-          symbol: { 
+          symbol: {
             type: "simple-marker",
             color: [10, 193, 247],
             size: 10,
@@ -72,7 +72,7 @@ export class ViewRoutesModalPage implements OnInit {
               color: [0, 52, 124],
               width: 1
             }
-           }
+          }
         })
       });
 
@@ -84,33 +84,34 @@ export class ViewRoutesModalPage implements OnInit {
 
       const lineSymbol = {
         type: "simple-line", // autocasts as new SimpleLineSymbol()
-        color: [226, 119, 40], // RGB color values as an array
+        color: [0, 226, 255],
         width: 4
       };
 
       const routeLayer = new Graphic({
-        geometry:polyline,
+        geometry: polyline,
         symbol: lineSymbol
       })
 
       this.view.graphics.add(routeLayer);
+      this.view.goTo(routeLayer);
 
-      const searchWidget = new Search({
-        view:this.view
-      });
+      // const searchWidget = new Search({
+      //   view: this.view
+      // });
 
       this.view.ui.add(locate, {
         position: "top-left"
       });
 
-      this.view.ui.add(searchWidget, {
-        position: "top-right",
-        index:0
-      });
+      // this.view.ui.add(searchWidget, {
+      //   position: "top-right",
+      //   index: 0
+      // });
 
       this.view.ui.add(baseMapToggle, {
         position: "top-right",
-        
+
       });
 
 
@@ -132,7 +133,7 @@ export class ViewRoutesModalPage implements OnInit {
     console.log((this.chosenRouteArcGISJson.paths))
   }
 
-  
+
   async dismissViewRoutesModalPage() {
     await this.modalController.dismiss();
   }

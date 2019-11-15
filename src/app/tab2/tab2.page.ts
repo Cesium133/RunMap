@@ -1,15 +1,15 @@
 import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { AppComponent }  from '../app.component';
+import { AppComponent } from '../app.component';
 import { DrawRouteModalPage } from '../draw-route-modal/draw-route-modal.page';
 import { HttpClient } from '@angular/common/http';
 
 @NgModule({
-  imports: [ FormGroup, FormsModule, ReactiveFormsModule ],
-  declarations: [ AppComponent ],
-  entryComponents: [ DrawRouteModalPage ]
+  imports: [FormGroup, FormsModule, ReactiveFormsModule],
+  declarations: [AppComponent],
+  entryComponents: [DrawRouteModalPage]
 
 })
 
@@ -21,27 +21,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Tab2Page {
 
-  form:FormGroup;
+  form: FormGroup;
   routeJSON: Object;
   routeLength: number;
   showForm: boolean = true;
   pageMessage: String = "Route Details";
 
-  routeTypes = ['Run','Bike','Hike'];
-  elevationRatings = ['Downhill','Flat','Hilly','Steep'];
+  routeTypes = ['Run', 'Bike', 'Hike'];
+  elevationRatings = ['Downhill', 'Flat', 'Hilly', 'Steep'];
   pavedOptions = ['Not Paved', 'Paved', 'Mixed'];
-  scenicRating = [1,2,3,4,5];
-  overallRating = [1,2,3,4,5];
-  
+  scenicRating = [1, 2, 3, 4, 5];
+  overallRating = [1, 2, 3, 4, 5];
 
-  constructor(public formBuilder:FormBuilder, public router: Router, public httpClient:HttpClient, public modalController: ModalController) {
+
+  constructor(public formBuilder: FormBuilder, public router: Router, public httpClient: HttpClient, public modalController: ModalController) {
     this.form = formBuilder.group({
-      "type":["Run", Validators.required],
-      "scenicRating":["3"],
-      "elevationRating":["", Validators.required],
+      "type": ["Run", Validators.required],
+      "scenicRating": ["3"],
+      "elevationRating": ["Flat", Validators.required],
       "paved": ["Mixed", Validators.required],
-      "overallRating":["", Validators.required],
-      "notes":[""]
+      "overallRating": ["3", Validators.required],
+      "notes": [""]
     })
 
   }
@@ -49,7 +49,7 @@ export class Tab2Page {
   async goToDrawRouteModalPage() {
     console.log("Clicked on Draw Route Modal");
     const drawRouteModal = await this.modalController.create({
-      component:DrawRouteModalPage,
+      component: DrawRouteModalPage,
       // componentProps: 
     });
     drawRouteModal.onDidDismiss().then((routeData) => {
@@ -83,6 +83,23 @@ export class Tab2Page {
       this.pageMessage = "Your data has been successfully submitted!";
     })
 
+  }
+
+  initializeFields() {
+    this.showForm = true;
+    this.routeLength = null;
+    this.form = this.formBuilder.group({
+      "type": ["Run", Validators.required],
+      "scenicRating": ["3"],
+      "elevationRating": ["Flat", Validators.required],
+      "paved": ["Mixed", Validators.required],
+      "overallRating": ["3", Validators.required],
+      "notes": [""]
+    })
+  }
+
+  ionViewWillEnter() {
+    this.initializeFields()
   }
 
   // TODO initialize fields function here
