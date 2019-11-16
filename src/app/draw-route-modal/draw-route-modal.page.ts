@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { ModalController } from '@ionic/angular';
 import { loadModules } from 'esri-loader';
 import { NavParams } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+
 
 import * as Terraformer from 'terraformer';
 import * as ArcGISParse from 'terraformer-arcgis-parser';
@@ -22,7 +24,7 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
   routeLength: number = 0;
   routeData: Object;
 
-  constructor(public modalController: ModalController, public navParams: NavParams) {}
+  constructor(public modalController: ModalController, public navParams: NavParams, public alertController: AlertController) {}
 
   async initializeMap() {
     try {
@@ -132,6 +134,17 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
     }
   }
 
+  async presentInstructions() {
+    const instructions = await this.alertController.create({
+      header: 'How do I draw a route?',
+      subHeader: 'Draw only one route per entry',
+      message: 'Draw a route with your finger. Double tap on your last route point to finish drawing.',
+      buttons: ['OK']
+    });
+    await instructions.present();
+  }
+
+
   convertJSONtoGeoJSON() {
     /*
     ? what happens after sketch is completed? 
@@ -161,6 +174,7 @@ export class DrawRouteModalPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeMap();
+    this.presentInstructions();
   }
 
   ngOnDestroy() {

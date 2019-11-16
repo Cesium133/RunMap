@@ -37,10 +37,10 @@ export class Tab2Page {
   constructor(public formBuilder: FormBuilder, public router: Router, public httpClient: HttpClient, public modalController: ModalController) {
     this.form = formBuilder.group({
       "type": ["Run", Validators.required],
-      "scenicRating": ["3"],
+      "scenicRating": [""],
       "elevationRating": ["Flat", Validators.required],
       "paved": ["Mixed", Validators.required],
-      "overallRating": ["3", Validators.required],
+      "overallRating": [""],
       "notes": [""]
     })
 
@@ -65,8 +65,6 @@ export class Tab2Page {
     console.log(typeof this.routeJSON)
     console.log(JSON.stringify(this.routeJSON))
 
-    // ? possible email to Zheng: first parameter inside params.append should match variable in insert_routes.php file. But what is same variable in php referring to if
-    // ? if there is no html file with variable in it?
 
     params.append('routeType', this.form.controls.type.value);
     params.append('scenicRating', this.form.controls.scenicRating.value);
@@ -90,10 +88,10 @@ export class Tab2Page {
     this.routeLength = null;
     this.form = this.formBuilder.group({
       "type": ["Run", Validators.required],
-      "scenicRating": ["3"],
+      "scenicRating": [""],
       "elevationRating": ["Flat", Validators.required],
       "paved": ["Mixed", Validators.required],
-      "overallRating": ["3", Validators.required],
+      "overallRating": [""],
       "notes": [""]
     })
   }
